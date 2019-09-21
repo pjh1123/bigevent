@@ -9,6 +9,13 @@
     <link rel="stylesheet" type="text/css" href="css/iconfont.css" />
     <link rel="stylesheet" type="text/css" href="css/main.css" />
     <link rel="stylesheet" href="./js/bootstrap/css/bootstrap.min.css" />
+
+    <style>
+      /* 单独设置登录页面模态框样式 */
+      .modal.in .modal-dialog {
+          transform: translate(0,80px);
+      }
+    </style>
   </head>
 
   <body>
@@ -24,7 +31,7 @@
         <form class="login_form">
           <i class="iconfont icon-user"></i>
           <i class="iconfont icon-key"></i>
-          <input id="userName" type="text" class="input_txt" placeholder="邮箱/手机号" />
+          <input id="userName" type="text" class="input_txt" placeholder="邮箱/手机号" autocomplete="off"/>
           <input id="password" type="password" class="input_pass" placeholder="密码" />
           <!-- <input type="submit" class="input_sub" value="登 录"> -->
           <button id="btnLogin" type="button" class="input_sub">登 录</button>
@@ -32,10 +39,62 @@
       </div>
     </div>
 
+
+    <!-- 模态框引入 -->
+    <div class="modal fade myModal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">错误信息</h4>
+          </div>
+          <div class="modal-body">
+            <p class="logMsg"></p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
     <script src="./js/lib/jquery-1.12.4.min.js"></script>
     <script src="./js/bootstrap/js/bootstrap.min.js"></script>
+    <script src="./js/methods/utils.js"></script>
+    <script src="./js/methods/user.js"></script>
    
+   <script>
+   //1.给登录按钮绑定点击事件，点击登录的时候发送ajax请求
+    $('#btnLogin').click(function(){
+      var i = $(this).attr('data-id');
+      $('.myModal').modal({backdrop:'static',keyboard:false});
 
+      //注意一定要点击以后再获取输入框的值
+      var userName = $('#userName').val();
+      var password = $('#password').val();
+
+        //判断输入值是否为空
+        if(userName == '' || password == ''){
+              $('.myModal').modal('show');
+              $('.logMsg').html('用户名和密码不能为空哦');
+        }else{
+          //  发送ajax请求
+              user.user_login(userName,password,function(res){
+                  if(res.code == 200){
+                    window.location.href = 'index.html'
+                  }else{
+                    $('.myModal').modal('show');
+                    $('.logMsg').html(res.msg);
+
+                  }
+                  
+              })
+              
+
+        }
+    })
+   
+   </script>
     
   </body>
 </html>
