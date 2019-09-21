@@ -6,7 +6,14 @@ var user = {
         })
 
     },
-    user_logout:function(){
-
+    user_logout:function(callback){
+         $.post(URL.ulogout_url,function(res){
+            callback(res);
+         }) 
+    },
+    user_msg:function(callback){
+        $.get(URL.ugetMsg_url,function(res){
+            callback(res);
+        })
     }
 }
