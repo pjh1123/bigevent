@@ -5,7 +5,8 @@ var URL = {
     ulogout_url:Utitle+'/admin/logout',
     ugetMsg_url:Utitle+'/admin/getuser',
 
-    article_addurl:Utitle+'/admin/category_add',
-    article_delurl:Utitle+'/admin/category_delet',
-    article_changeurl:Utitle+'/admin/category_edit', 
+    article_search:Utitle+'/admin/category_search',
+    article_add:Utitle+'/admin/category_add',
+    article_change:Utitle+'/admin/category_edit', 
+    article_del:Utitle+'/admin/category_delete',
 }
