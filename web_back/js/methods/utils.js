@@ -9,4 +9,10 @@ var URL = {
     article_add:Utitle+'/admin/category_add',
     article_change:Utitle+'/admin/category_edit', 
     article_del:Utitle+'/admin/category_delete',
+
+
+    article_list_search:Utitle+'/admin/search',
+    article_list_del:Utitle+'/admin/article_delete',
+
+    article_publish:Utitle+'/admin/article_publish',
 }

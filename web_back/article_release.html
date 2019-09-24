@@ -23,24 +23,24 @@
             写文章
         </div>
         <div class="container-fluid common_con">
-            <form class="form-horizontal article_form">
+            <form class="form-horizontal article_form" id="myform">
                 <div class="form-group">
                     <label for="inputEmail3" class="col-sm-2 control-label">文章标题：</label>
                     <div class="col-sm-10">
-                        <input type="email" class="form-control" id="inputEmail3" placeholder="文章标题">
+                        <input type="email" class="form-control" id="inputEmail3" placeholder="文章标题" name="title">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="inputPassword3" class="col-sm-2 control-label">文章封面：</label>
                     <div class="col-sm-10">
-                        <input type="file" id="exampleInputFile">
+                        <input type="file" id="exampleInputFile"  name="cover">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="inputEmail3" class="col-sm-2 control-label">文章类别：</label>
                     <div class="col-sm-4">
-                        <select class="form-control" id="searchMSG">
-                            <option>1</option>
+                        <select class="form-control" id="searchMSG" name="type" value=''>
+                            <!-- <option>1</option> -->
                         </select>
                     </div>
                 </div>
@@ -49,7 +49,7 @@
                     <div class="col-sm-4">
 
                         <div class="input-group">
-                            <input type="text" class="form-control" placeholder="YYYY-MM-DD" id="dateinput">
+                            <input type="text" class="form-control" placeholder="YYYY-MM-DD" id="dateinput" name="date">
                             <span class="input-group-btn">
                                 <button class="btn btn-default" type="button"
                                     onclick="jeDate('#dateinput',{trigger:false,format: 'YYYY-MM-DD'})"><i
@@ -61,15 +61,15 @@
                 <div class="form-group">
                     <label for="inputEmail3" class="col-sm-2 control-label">文章内容：</label>
                     <div class="col-sm-10">
-                        <textarea class="form-control" id="rich_content" name="content" placeholder="文章内容">
+                        <textarea class="form-control" id="rich_content"  name="content" placeholder="文章内容">
                             Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda fugiat illo nihil molestias ab. Laborum eius non atque, totam sapiente quae obcaecati assumenda ratione inventore pariatur maiores, qui libero delectus.
-                            </textarea>
+                        </textarea>
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10">
-                        <button type="submit" class="btn btn-success">发布</button>
-                        <button type="submit" class="btn btn-default">存为草稿</button>
+                        <button type="button" class="btn btn-success" id="publish">发布</button>
+                        <button type="button" class="btn btn-default">存为草稿</button>
                     </div>
                 </div>
             </form>
@@ -85,23 +85,42 @@
      <script id='temp' type="text/html">
         <!-- 这里是为了渲染文章列表到页面的表格上显示 -->
         {{each data item}}
-        <option>{{item.name}}</option>
+        <option value='{{item.id}}'>{{item.name}}</option>
         {{/each}}
-        </script>
+    </script>
   
   
     <script>
         function showM(){
             //页面刷新首先需要查询文章类别，发送查询的ajax请求 
             article_category.article_search(function(res){
-                console.log(res)
                 var str = template('temp',res);
+
                 $('#searchMSG').html(str);
             })
            }
+
         $(function(){
             showM();
         })
+
+        //点击发布，发送请求
+        $('#publish').click(function(){
+            var fd = new FormData($('#myform')[0]);
+            fd.append('state','已发布');
+            fd.set('content',tinyMCE.activeEditor.getContent());
+            article_list.article_publish(fd,function(res){
+               if(res.code == 201){
+                   console.log(res)
+                   window.location.href = './article_list.html'
+               }
+            });
+
+        });
+
+        //点击编辑
+
+
      
      
     </script>

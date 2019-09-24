@@ -10,7 +10,8 @@
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/iconfont.css">
     <link rel="stylesheet" href="css/main.css">
-    <script src="js/jquery-1.12.4.min.js"></script>
+    <script src="js/lib/jquery-1.12.4.min.js"></script>
+    <script src="./js/bootstrap/js/bootstrap.min.js"></script>
 </head>
 
 <body>
@@ -23,18 +24,14 @@
                 <div class="col-xs-6">
                     <form class="form-inline">
                         <select id="selCategory" name="" class="form-control input-sm">
-                            <option>所有分类</option>
-                            <option>未分类</option>
-                            <option>奇趣事</option>
-                            <option>会生活</option>
-                            <option>爱旅行</option>
+                            <option value=" ">所有分类</option>
                         </select>
                         <select id="selStatus" name="" class="form-control input-sm">
-                            <option>所有状态</option>
-                            <option value="drafted">草稿</option>
-                            <option value="published">已发布</option>
+                            <option value="">所有状态</option>
+                            <option value="草稿">草稿</option>
+                            <option value="已发布">已发布</option>
                         </select>
-                        <button id="btnSearch" class="btn btn-default btn-sm">筛选</button>
+                        <button type="button" id="btnSearch" class="btn btn-default btn-sm">筛选</button>
                     </form>
                 </div>
                 <div class="col-xs-6">
@@ -53,227 +50,189 @@
                         <th class="text-center" width="100">操作</th>
                     </tr>
                 </thead>
-                <tbody>
-
-
-
-                    <tr>
-                        
+                <tbody id="table_body">
+                    <!-- <tr>
                         <td>王积千造统最头</td>
                         <td>杰克</td>
                         <td>奇趣事</td>
                         <td class="text-center">2017-06-08 07:08:46</td>
-
-
                         <td class="text-center">已发布</td>
-
-
                         <td class="text-center">
                             <a href="article_edit.html" class="btn btn-default btn-xs">编辑</a>
                             <a href="javascript:deleteTr( 1005 );" class="btn btn-danger btn-xs">删除</a>
                         </td>
-                    </tr>
-
-
-
-                    <tr>
-                     
-                        <td>级电使正回</td>
-                        <td>肉丝</td>
-                        <td>爱旅行</td>
-                        <td class="text-center">2017-06-06 10:45:24</td>
-
-
-                        <td class="text-center">已发布</td>
-
-
-                        <td class="text-center">
-                            <a href="article_edit.html" class="btn btn-default btn-xs">编辑</a>
-                            <a href="javascript:deleteTr( 1004 );" class="btn btn-danger btn-xs">删除</a>
-                        </td>
-                    </tr>
-
-
-
-                    <tr>
-                       
-                        <td>近难领管年算</td>
-                        <td>杰克</td>
-                        <td>会生活</td>
-                        <td class="text-center">2017-05-27 16:49:04</td>
-
-
-                        <td class="text-center">已发布</td>
-
-
-                        <td class="text-center">
-                            <a href="article_edit.html" class="btn btn-default btn-xs">编辑</a>
-                            <a href="javascript:deleteTr( 1003 );" class="btn btn-danger btn-xs">删除</a>
-                        </td>
-                    </tr>
-
-
-
-                    <tr>
-                       
-                        <td>龙大实究</td>
-                        <td>杰克</td>
-                        <td>未分类</td>
-                        <td class="text-center">2017-04-13 10:43:41</td>
-
-
-                        <td class="text-center">草稿</td>
-
-
-                        <td class="text-center">
-                            <a href="post-edit.html?id=1002" class="btn btn-default btn-xs">编辑</a>
-                            <a href="javascript:deleteTr( 1002 );" class="btn btn-danger btn-xs">删除</a>
-                        </td>
-                    </tr>
-
-
-
-                    <tr>
-                      
-                        <td>算性得走来拉</td>
-                        <td>肉丝</td>
-                        <td>奇趣事</td>
-                        <td class="text-center">2017-04-06 04:58:12</td>
-
-
-                        <td class="text-center">已发布</td>
-
-
-                        <td class="text-center">
-                            <a href="post-edit.html?id=1001" class="btn btn-default btn-xs">编辑</a>
-                            <a href="javascript:deleteTr( 1001 );" class="btn btn-danger btn-xs">删除</a>
-                        </td>
-                    </tr>
-
-
-
-                    <tr>
-                      
-                        <td>几平会出气</td>
-                        <td>管理员</td>
-                        <td>奇趣事</td>
-                        <td class="text-center">2017-04-03 20:16:34</td>
-
-
-                        <td class="text-center">草稿</td>
-
-
-                        <td class="text-center">
-                            <a href="post-edit.html?id=1000" class="btn btn-default btn-xs">编辑</a>
-                            <a href="javascript:deleteTr( 1000 );" class="btn btn-danger btn-xs">删除</a>
-                        </td>
-                    </tr>
-
-
-
-                    <tr>
-                      
-                        <td>世团先证型角</td>
-                        <td>杰克</td>
-                        <td>奇趣事</td>
-                        <td class="text-center">2017-04-03 14:40:08</td>
-
-
-                        <td class="text-center">已发布</td>
-
-
-                        <td class="text-center">
-                            <a href="post-edit.html?id=999" class="btn btn-default btn-xs">编辑</a>
-                            <a href="javascript:deleteTr( 999 );" class="btn btn-danger btn-xs">删除</a>
-                        </td>
-                    </tr>
-
-
-
-                    <tr>
-                      
-                        <td>构更反步五</td>
-                        <td>肉丝</td>
-                        <td>奇趣事</td>
-                        <td class="text-center">2017-03-30 22:31:52</td>
-
-
-                        <td class="text-center">已发布</td>
-
-
-                        <td class="text-center">
-                            <a href="post-edit.html?id=998" class="btn btn-default btn-xs">编辑</a>
-                            <a href="javascript:deleteTr( 998 );" class="btn btn-danger btn-xs">删除</a>
-                        </td>
-                    </tr>
-
-
-
-                    <tr>
-                       
-                        <td>组方些</td>
-                        <td>肉丝</td>
-                        <td>会生活</td>
-                        <td class="text-center">2017-02-08 05:38:43</td>
-
-
-                        <td class="text-center">草稿</td>
-
-
-                        <td class="text-center">
-                            <a href="post-edit.html?id=996" class="btn btn-default btn-xs">编辑</a>
-                            <a href="javascript:deleteTr( 996 );" class="btn btn-danger btn-xs">删除</a>
-                        </td>
-                    </tr>
-
-
-
-                    <tr>
-                      
-                        <td>日做发光成</td>
-                        <td>管理员</td>
-                        <td>爱旅行</td>
-                        <td class="text-center">2017-01-26 22:19:59</td>
-
-
-                        <td class="text-center">草稿</td>
-
-
-                        <td class="text-center">
-                            <a href="post-edit.html?id=995" class="btn btn-default btn-xs">编辑</a>
-                            <a href="javascript:deleteTr( 995 );" class="btn btn-danger btn-xs">删除</a>
-                        </td>
-                    </tr>
-
-
+                    </tr> -->
                 </tbody>
             </table>
 
             <div class="row text-center">
-            <ul class="pagination pagination-sm">
-                <li class="page-item first disabled"><a href="#" class="page-link">首页</a></li>
-                <li class="page-item prev disabled"><a href="#" class="page-link">上一页</a></li>
-                <li class="page-item active"><a href="#" class="page-link">1</a></li>
-                <li class="page-item"><a href="#" class="page-link">2</a></li>
-                <li class="page-item"><a href="#" class="page-link">3</a></li>
-                <li class="page-item"><a href="#" class="page-link">4</a></li>
-                <li class="page-item"><a href="#" class="page-link">5</a></li>
-                <li class="page-item"><a href="#" class="page-link">6</a></li>
-                <li class="page-item"><a href="#" class="page-link">7</a></li>
-                <li class="page-item next"><a href="#" class="page-link">下一页</a></li>
-                <li class="page-item last"><a href="#" class="page-link">尾页</a></li>
-            </ul>
-        </div>
+                <ul class="pagination pagination-sm" id="fenye">
+                </ul>
+            </div>
 
         </div>
     </div>
 
+    <!-- 模态框 -->
+    <div class="modal fade" id="addModal" >
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+                  <h4 class="modal-title">确认信息</h4>
+                </div>
+                <div class="modal-body">
+                  <form>
+                    <label for="">是否确认删除？</label>
+                    <!-- 提示信息 -->
+                    <div class="alert alert-success" role="alert" id="tishiMSG" style="display:none"></div>
+                  </form>
+                </div>
+    
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" id="model_shutoff">关闭</button>
+                  <button type="button" class="btn btn-primary" id="model_del" data-id="">确认删除</button>
+                </div>
+              </div>
+            </div>
+          </div>
+    
+
     <script>
         // 设置左侧菜单
-        $('#release_btn').click(function(){
-            window.parent.setMenu(1,1);
+        $('#release_btn').click(function () {
+            window.parent.setMenu(1, 1);
         })
     </script>
+
+    <script src="./js/methods/utils.js"></script>
+    <script src="./js/methods/user.js"></script>
+    <!-- 分页效果插件 -->
+    <script src="./js/lib/jquery.twbsPagination.min.js"></script>
+    <script>
+
+    </script>
+
+
+    <!-- 模板引擎技术 -->
+    <script src="./js/lib/template-web.js"></script>
+    <script id='temp' type="text/html">
+    {{each data item}}
+    <tr>
+            <td>{{item.title}}</td>
+            <td>{{item.author}}</td>
+            <td>{{item.type}}</td>
+            <td class="text-center">{{item.date}}</td>
+            <td class="text-center">{{item.state}}</td>
+            <td class="text-center">
+                <a href="article_edit.html" class="btn btn-default btn-xs">编辑</a>
+                <a href="javascript:;" class="btn btn-danger btn-xs del" data-n='{{item.id}}'>删除</a>
+            </td>
+        </tr>
+    {{/each}}
+    </script>
+
+    <script id='te' type="text/html">
+    <!-- 第二个模板引擎，用来渲染文章类别 -->
+    <option value=''>所有分类</option>
+    {{each data item}}
+    <option value='{{item.id}}'>{{item.name}}</option>
+    {{/each}}
+    </script>
+
+
+    <script>
+
+        //尽量把内容都放在入口函数中，防止变量污染
+
+    $(function () {
+            var pages = '';//记录当前点击的页数
+            var total_Page = '';//记录当前总页数
+            var type = '';//筛选类别id
+            var status = '';//筛选的发布状态
+            //页面刷新的时候就要发送搜索请求，渲染页面
+            searchShow();
+            //----------------文章搜索显示功能-----------------------------------------
+            function searchShow() {
+                article_list.list_search({ page: pages, state: status, type: type }, function (res) {
+                    var str = template('temp', res);
+                    $('#table_body').html(str);
+
+                    
+                    if (res.totalPage != total_Page) {
+                        //如果当前总页数和原来总页数不同，就记录总页数
+                        //销毁整个插件
+                        total_Page = res.totalPage;
+                        $(".pagination").twbsPagination("destroy");
+                        $('.pagination').twbsPagination({
+                        currentPage: 1,  // 初始页
+                        totalPages: res.totalPage,  // 总页数，可以通过翻页，或者最后一页
+                        startPage: 1,//开始页
+                        visiblePages: 6, // 可见页数
+                        first: "首页",
+                        last: "未页",
+                        prev: '上一页',
+                        next: '下一页',
+                        initiateStartPageClick: false,//是否自动点击开始页
+                        onPageClick: function (event, page) {
+                            //页面分页效果
+                            //因为这里是点击分页才会触发，所以不会发生循环等问题。
+                            //在外部维护一个变量可以保证searchShow()是稳定的，不需要传入参数。
+
+                            pages = page;
+                            searchShow()
+                        }
+                    });
+                    }
+                    
+
+
+                });
+            }
+            //----------------文章所有类别-----------------------------------------
+            article_category.article_search(function (res) {
+                var strl = template('te', res);
+                $('#selCategory').html(strl);
+
+            });
+            //----------------筛选功能-----------------------------------------
+            $('#btnSearch').click(function (r) {
+                pages = 1;//点击筛选的时候要手动设置pages为空，否则pages会一直记录当前页面的值
+                type = $('#selCategory').val();//筛选类别id
+                status = $('#selStatus').val();//筛选的发布状态
+                searchShow();
+            })
+            //----------------删除文章-----------------------------------------
+            $('#table_body').on('click','.del',function(){
+                var id = $(this).attr('data-n');
+                $('#addModal').modal('show');
+                console.log(id);
+
+
+                   //点击模态框的删除按钮，发送删除ajax请求
+                   $('#model_del').click(function(){
+                       article_list.list_delete(id,function(res){
+                           if(res.code == 200){
+                            $('#addModal').modal('hide');
+                              searchShow()
+                           }
+                       })
+
+                   })
+            })
+            //点击关闭模态框
+            $('#model_shutoff').click(function(){
+                $('#addModal').modal('hide');
+            });
+            
+
+           
+        })
+
+        
+    </script>
+
+
 
 </body>
 

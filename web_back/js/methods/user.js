@@ -56,3 +56,46 @@ var article_category = {
 
 
 }
+
+
+// 文章列表管理
+/**
+ 1.文章列表查询 全部动态显示
+ 2.文章列表删除
+ 3.发布文章
+ */
+var article_list = {
+    list_search:function(obj,callback){
+    //这里文章搜索不但需要全部搜索，还可以按条件搜索，
+    //所以需要多次发送不同请求，请求的参数个数并不能确定，所以以对象的形式传入比较合适
+        $.get(URL.article_list_search,obj,function(res){
+            callback(res)
+        });
+
+        },
+
+
+    list_delete:function(id,callback){
+        $.get(URL.article_list_del,{id:id},function(res){
+            callback(res)
+        })
+        },
+
+    //文章发布，因为涉及到formdata，所以应该自己写ajax请求
+    article_publish:function(fd,callback){
+        $.ajax({
+            url: URL.article_publish,
+            type:'post',
+            data:fd,
+            processData:false,
+            contentType:false,
+            success:function(res){
+                callback(res);
+            }
+         })
+
+
+    }
+
+}
+
