@@ -125,7 +125,7 @@
             <td class="text-center">{{item.date}}</td>
             <td class="text-center">{{item.state}}</td>
             <td class="text-center">
-                <a href="article_edit.html" class="btn btn-default btn-xs">编辑</a>
+                <a href="article_edit.html?id={{item.id}}" class="btn btn-default btn-xs">编辑</a>
                 <a href="javascript:;" class="btn btn-danger btn-xs del" data-n='{{item.id}}'>删除</a>
             </td>
         </tr>
@@ -146,6 +146,7 @@
         //尽量把内容都放在入口函数中，防止变量污染
 
     $(function () {
+        
             var pages = '';//记录当前点击的页数
             var total_Page = '';//记录当前总页数
             var type = '';//筛选类别id

@@ -11,15 +11,16 @@
     <link rel="stylesheet" href="css/iconfont.css">
     <link rel="stylesheet" href="css/main.css">
     <link type="text/css" rel="stylesheet" href="js/jedate/css/jedate.css">
-    <script src="js/jquery-1.12.4.min.js"></script>
+    <script src="js/lib/jquery-1.12.4.min.js"></script>
     <script src="js/jedate/js/jedate.js"></script>
     <script src="js/tinymce/js/tinymce/tinymce.min.js"></script>
     <script src="js/tinymce/js/tinymce_setup.js"></script>
+    <script src="./js/bootstrap/js/bootstrap.min.js"></script>
 </head>
 
 <body>
     <div class="container-fluid">
-        <div class="common_title">
+        <div class="common_title" >
             文章编辑
         </div>
         <div class="container-fluid common_con">
@@ -27,25 +28,21 @@
                 <div class="form-group">
                     <label for="inputEmail3" class="col-sm-2 control-label">文章标题：</label>
                     <div class="col-sm-10">
-                        <input type="email" class="form-control" id="inputEmail3" value="文章标题文字">
+                        <input type="email" class="form-control" id="inputEmail3" value="" name="title">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="inputPassword3" class="col-sm-2 control-label">文章封面：</label>
                     <div class="col-sm-10">
-                        <img src="images/pic06.jpg" class="article_cover">
-                        <input type="file" id="exampleInputFile">
+                        <img src="" class="article_cover" >
+                        <input type="file" id="exampleInputFile" name="cover">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="inputEmail3" class="col-sm-2 control-label">文章类别：</label>
                     <div class="col-sm-4">
-                        <select class="form-control">
-                            <option>类别一</option>
-                            <option>类别二</option>
-                            <option>类别三</option>
-                            <option selected>类别四</option>
-                            <option>类别五</option>
+                        <select class="form-control" id="article_category" value="" name="type">
+                           
                         </select>
                     </div>
                 </div>
@@ -54,7 +51,7 @@
                     <div class="col-sm-4">
 
                         <div class="input-group">
-                            <input type="text" class="form-control" value="2019-05-17" id="dateinput">
+                            <input type="text" class="form-control" value="" id="dateinput" name="date">
                             <span class="input-group-btn">
                                 <button class="btn btn-default" type="button"
                                     onclick="jeDate('#dateinput',{trigger:false,format: 'YYYY-MM-DD'})"><i
@@ -66,17 +63,100 @@
                 <div class="form-group">
                     <label for="inputEmail3" class="col-sm-2 control-label">文章内容：</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="rich_content" name="content" placeholder="文章内容" value="文章内容">
+                        <input type="text" class="form-control" id="rich_content"  placeholder="文章内容" name="content" value="文章内容">
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10">
-                        <button type="submit" class="btn btn-success">修改</button>
+                        <button type="button" class="btn btn-success" id="savaEdit">修改</button>
                     </div>
                 </div>
             </form>
         </div>
     </div>
+
+    <!-- 模态框引入 -->
+    <div class="modal fade myModal2">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-body">
+                  <p class="logMsg"></p>
+                </div>
+              </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+          </div><!-- /.modal -->
+
+    <script src="./js/methods/utils.js"></script>
+    <script src="./js/methods/user.js"></script>
+
+    <!-- 模板引擎技术 -->
+    <script src="./js/lib/template-web.js"></script>
+    <script id='temp' type="text/html">
+    {{each data item}}
+        <option value="{{item.id}}">{{item.name}}</option>
+    {{/each}}
+    </script>
+    <script>
+     $(function(){
+        // 把地址栏类似 ?id=281 & a=1 &b=2 转换成对象的形式 {id: "281"}
+         function getID(str){
+            var obj = {};
+            var arr = [];
+            var arr1 = [];
+            str =  str.replace('?','');
+            var arr = str.split('&');
+            arr.forEach(function(item){
+                arr1 = item.split('=');
+                obj[arr1[0]] = arr1[1];
+            })
+            return obj
+         }
+
+         var str = window.location.search;
+         var id = getID(str).id;
+         
+         //已经获取文章对应的id值，发送请求搜索对应的文章内容，显示在页面上
+         article_list.list_search({id:id},function(res){
+             $('#inputEmail3').val(res.data.title);
+             $('.article_cover').attr('src',res.data.cover);
+             $('#dateinput').val(res.data.date);
+             $('#rich_content').val(res.data.content); 
+
+             //这里的type就是当前文章的文章类别
+             var type = res.data.type;
+              //获取文章类别显示在页面上
+                article_category.article_search(function(res){
+                    var strHtml = template('temp',res);
+                    $('#article_category').html(strHtml);
+                    $('#article_category').val(type);
+                });
+         });
+        
+         //点击修改按钮，发送请求编辑内容
+         $('#savaEdit').click(function(){
+             var fd = new FormData($('.article_form')[0])
+             fd.append('id',id);
+             fd.set('content', tinyMCE.activeEditor.getContent())
+            article_list.article_edit(fd,function(res){
+                if(res.code == 200){
+                    $('.logMsg').text('编辑成功，即将跳转');
+                    $('.modal').modal('show');
+                    setTimeout(function(){
+                        $('.modal').modal('hide');
+                         window.location.href = 'article_list.html'
+                    },2000)
+                }else{
+                    $('.modal').modal('show');
+                    $('.logMsg').text(res.msg);
+                    setTimeout(function(){
+                        $('.modal').modal('hide');
+                    },1000)
+                }
+            })
+         })
+
+     })
+    </script>
 
 </body>
 

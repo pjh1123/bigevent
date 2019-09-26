@@ -63,6 +63,7 @@ var article_category = {
  1.文章列表查询 全部动态显示
  2.文章列表删除
  3.发布文章
+ 4.文章编辑
  */
 var article_list = {
     list_search:function(obj,callback){
@@ -93,9 +94,21 @@ var article_list = {
                 callback(res);
             }
          })
+    },
 
-
-    }
+    //文章编辑
+    article_edit:function(fd,callback){
+        $.ajax({
+            url: URL.article_edit,
+            type:'post',
+            data:fd,
+            processData:false,
+            contentType:false,
+            success:function(res){
+                callback(res);
+            }
+         })
+    },
 
 }
 

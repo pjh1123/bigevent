@@ -15,4 +15,6 @@ var URL = {
     article_list_del:Utitle+'/admin/article_delete',
 
     article_publish:Utitle+'/admin/article_publish',
+
+    article_edit:Utitle+'/admin/article_edit',
 }
