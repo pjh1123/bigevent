@@ -59,9 +59,9 @@
                 当前位置： <a href="#">首页</a> &gt; <a href="#">科技</a> &gt; 文章详情
             </div>
             <h3 class="article_title">马斯克的新花样？连接人脑和电脑的初创公司又筹了一笔钱</h3>
-            <div class="article_info">杰克 发布于 2019-05-08 07:08:46&nbsp;&nbsp;&nbsp;分类: 奇趣事&nbsp;&nbsp;&nbsp;阅读:
+            <div class="article_info"><span class="article_author"></span> 发布于 <span class="article_date"></span>&nbsp;&nbsp;&nbsp;阅读:<span class="article_read"></span>
                 (98)&nbsp;&nbsp;&nbsp;评论: (0)</div>
-            <div class="article_con">
+            <div class="article_content">
 
                 <p>“上天入地”还不够？硅谷“钢铁侠”马斯克名下一家低调的公司最近又融了一大笔钱。</p>
 
@@ -204,6 +204,44 @@
         <p>CopyRight © 2019 深圳大事件信息技术股份有限公司 All Rights Reserved</p>
         <p>电话：0755-****888 粤ICP备*******8号</p>
     </div>
+
+    <script src="./js/jquery-1.12.4.min.js"></script>
+    <script src="./js/methods/utils.js"></script>
+    <script src="./js/methods/user.js"></script>
+    <script>
+    $(function(){
+        function getID(str){
+            var obj = {};
+            var arr = [];
+            var arr1 = [];
+            str =  str.replace('?','');
+            var arr = str.split('&');
+            arr.forEach(function(item){
+                arr1 = item.split('=');
+                obj[arr1[0]] = arr1[1];
+            })
+            return obj
+         }
+
+         var str = window.location.search;
+         var id = getID(str).id;
+         //根据对应的id查询文章内容显示在页面上
+         article_list.list_search({id:id},function(res){
+            if(res.code == 200){
+                $('.article_title').text(res.data.title);
+                $('.article_author').text(res.data.author);
+                $('.article_content').html(res.data.content);
+                $('.article_date').text(res.data.date);
+                $('.article_read').text(res.data.read);
+                
+            }
+            
+        })
+
+        //获取评论数据
+        
+    })
+    </script>
 
 </body>
 
