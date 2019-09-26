@@ -11,7 +11,28 @@ var article_list = {
             callback(res)
         });
 
-        }
+        } 
+}
+
+var comment = {
+    comment_show:function(id,callback){
+        $.get(URL.comment_show,{article_id:id},function(res){
+            callback(res)
+        })
+    },
+
+    comment_add:function(fd,callback){
+        $.ajax({
+            url:URL.comment_add,
+            type:'post',
+            data:fd,
+            success:function(res){
+                callback(res);
+            }
+            
+        }) 
+    },
     
+
 }
 

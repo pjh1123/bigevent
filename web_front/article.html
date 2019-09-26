@@ -59,7 +59,8 @@
                 当前位置： <a href="#">首页</a> &gt; <a href="#">科技</a> &gt; 文章详情
             </div>
             <h3 class="article_title">马斯克的新花样？连接人脑和电脑的初创公司又筹了一笔钱</h3>
-            <div class="article_info"><span class="article_author"></span> 发布于 <span class="article_date"></span>&nbsp;&nbsp;&nbsp;阅读:<span class="article_read"></span>
+            <div class="article_info"><span class="article_author"></span> 发布于 <span
+                    class="article_date"></span>&nbsp;&nbsp;&nbsp;阅读:<span class="article_read"></span>
                 (98)&nbsp;&nbsp;&nbsp;评论: (0)</div>
             <div class="article_content">
 
@@ -83,49 +84,30 @@
             <form action="" class="comment_form">
                 <div class="form_group">
                     <label>用户名：</label>
-                    <input type="text" placeholder="请输入用户名" class="comment_name">
+                    <input type="text" placeholder="请输入用户名" class="comment_name" name="name">
                 </div>
                 <div class="form_group">
                     <label>评论内容：</label>
-                    <textarea placeholder="请发表您的评论" class="comment_input"></textarea>
+                    <textarea placeholder="请发表您的评论" class="comment_input" name="content"></textarea>
                 </div>
                 <div class="form_group">
-                    <input type="submit" name="" value="评 论" class="comment_sub"></div>
+                    <input type="button" name="" value="评 论" class="comment_sub"></div>
             </form>
 
             <div class="comment_count">
-                4条评论
+
             </div>
 
             <div class="comment_list_con">
-                <div class="comment_detail_list">
+                <!-- <div class="comment_detail_list">
                     <div class="person_pic fl">乔</div>
                     <div class="name_time fl"><b>虚竹</b><span>4小时前</span></div>
                     <div class="comment_text fl">
                         遏制茅台酒价格过快上涨，多渠道供给，就不一定要买，租茅台酒也可以的，租售同权。开发共有产权茅台酒，让老百姓喝得起茅台酒，饮者有其酒。
                     </div>
-                </div>
-                <div class="comment_detail_list">
-                    <div class="person_pic fl">段</div>
-                    <div class="name_time fl"><b>虚竹</b><span>4小时前</span></div>
-                    <div class="comment_text fl">
-                        遏制茅台酒价格过快上涨，多渠道供给，就不一定要买，租茅台酒也可以的，租售同权。开发共有产权茅台酒，让老百姓喝得起茅台酒，饮者有其酒。
-                    </div>
-                </div>
-                <div class="comment_detail_list">
-                    <div class="person_pic fl">虚</div>
-                    <div class="name_time fl"><b>虚竹</b><span>4小时前</span></div>
-                    <div class="comment_text fl">
-                        遏制茅台酒价格过快上涨，多渠道供给，就不一定要买，租茅台酒也可以的，租售同权。开发共有产权茅台酒，让老百姓喝得起茅台酒，饮者有其酒。
-                    </div>
-                </div>
-                <div class="comment_detail_list">
-                    <div class="person_pic fl">王</div>
-                    <div class="name_time fl"><b>虚竹</b><span>4小时前</span></div>
-                    <div class="comment_text fl">
-                        遏制茅台酒价格过快上涨，多渠道供给，就不一定要买，租茅台酒也可以的，租售同权。开发共有产权茅台酒，让老百姓喝得起茅台酒，饮者有其酒。
-                    </div>
-                </div>
+                </div> -->
+
+
             </div>
         </div>
         <div class="right_con setfl">
@@ -208,39 +190,103 @@
     <script src="./js/jquery-1.12.4.min.js"></script>
     <script src="./js/methods/utils.js"></script>
     <script src="./js/methods/user.js"></script>
-    <script>
-    $(function(){
-        function getID(str){
-            var obj = {};
-            var arr = [];
-            var arr1 = [];
-            str =  str.replace('?','');
-            var arr = str.split('&');
-            arr.forEach(function(item){
-                arr1 = item.split('=');
-                obj[arr1[0]] = arr1[1];
-            })
-            return obj
-         }
 
-         var str = window.location.search;
-         var id = getID(str).id;
-         //根据对应的id查询文章内容显示在页面上
-         article_list.list_search({id:id},function(res){
-            if(res.code == 200){
-                $('.article_title').text(res.data.title);
-                $('.article_author').text(res.data.author);
-                $('.article_content').html(res.data.content);
-                $('.article_date').text(res.data.date);
-                $('.article_read').text(res.data.read);
-                
+    <!-- 模板引擎技术 -->
+    <script src="./js/lib/template-web.js"></script>
+    <script id='temp' type="text/html">
+    {{each data item }}
+    <div class="comment_detail_list">
+        <div class="person_pic fl">{{item.name.substr(0,1)}}</div>
+        <div class="name_time fl"><b>{{item.name}}</b><span>{{date(item.dt)}}</span></div>
+        <div class="comment_text fl">
+            {{item.content}}
+        </div>
+    </div>
+    {{/each}}
+    </script>
+
+
+    <script>
+        $(function () {
+            function getID(str) {
+                var obj = {};
+                var arr = [];
+                var arr1 = [];
+                str = str.replace('?', '');
+                var arr = str.split('&');
+                arr.forEach(function (item) {
+                    arr1 = item.split('=');
+                    obj[arr1[0]] = arr1[1];
+                })
+                return obj
             }
-            
+
+            var str = window.location.search;
+            var id = getID(str).id;
+            //根据对应的id查询文章内容显示在页面上
+            article_list.list_search({ id: id }, function (res) {
+                if (res.code == 200) {
+                    $('.article_title').text(res.data.title);
+                    $('.article_author').text(res.data.author);
+                    $('.article_content').html(res.data.content);
+                    $('.article_date').text(res.data.date);
+                    $('.article_read').text(res.data.read);
+
+                }
+
+            })
+
+
+            //获取评论数据
+            //发送请求获取评论，显示在页面上
+            function commentShow() {
+                comment.comment_show(id, function (res) {
+                    template.defaults.imports.date = date;
+                    $('.comment_count').text(res.data.length + '条评论');
+                    $('.comment_list_con').html(template('temp', res))
+
+                    function date(dt) {
+                        var a;
+                        var d = Date.now() - dt;
+                        d = Math.floor(d / 1000);
+                        // 过去的秒数
+                        day = Math.floor(d / 24 / 60 / 60);
+                        hour = Math.floor((d - day * 24 * 60 * 60) / 60 / 60);
+                        minute = Math.floor((d - day * 24 * 60 * 60 - hour * 60 * 60) / 60);
+
+                        day == 0 ? day = '' : day = day + '天';
+                        d = day + hour + '小时' + minute + '分钟' + '前'
+                        return d;
+
+                    }
+                });
+            }
+            commentShow();
+
+
+
+            //发表评论
+            var str = window.location.search;
+            var id = getID(str).id;
+
+            $('.comment_sub').click(function () {
+                var fd = new FormData($('.comment_form')[0]);
+                comment.comment_add({
+                    name:fd.get('name'),
+                    content:fd.get('content'),
+                    article_id:id
+                }, function (res) {
+                    if (res.code == 200) {
+                        commentShow();
+                    }
+
+
+                })
+            })
+
         })
 
-        //获取评论数据
-        
-    })
+
     </script>
 
 </body>
